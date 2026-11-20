@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de Informes de Laboratorio - UNJBG (APA 7.ª Edición)</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar no-print">
+    <div class="topbar-brand">
+      <img src="assets/logo-unjbg.png" alt="Logo UNJBG" class="topbar-logo" />
+      <div>
+        <h1>Generador de Informes de Laboratorio <span class="badge-apa">APA 7.ª Ed.</span></h1>
+        <p>Universidad Nacional Jorge Basadre Grohmann &bull; Laboratorio de Física</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button type="button" class="btn btn-outline" id="btnToggleGuias" title="Mostrar u ocultar las guías APA 7">
+        Ocultar Guías
+      </button>
+      <button type="button" class="btn btn-outline" id="btnCargarEjemplo" title="Rellenar con un ejemplo en formato APA 7">
+        Cargar Ejemplo
+      </button>
+      <button type="button" class="btn btn-outline" id="btnExportarJSON" title="Guardar respaldo editable en JSON">
+        Guardar Proyecto (.json)
+      </button>
+      <label class="btn btn-outline file-label" title="Cargar un proyecto JSON guardado previamente">
+        Abrir Proyecto (.json)
+        <input type="file" id="inputImportarJSON" accept=".json" hidden />
+      </label>
+      <button type="button" class="btn btn-secondary" id="btnExportarMD">
+        Exportar .MD
+      </button>
+      <button type="button" class="btn btn-secondary" id="btnExportarTEX">
+        Exportar .TEX
+      </button>
+      <button type="button" class="btn btn-primary" id="btnExportarDOC">
+        Descargar Word APA 7 (.doc)
+      </button>
+      <button type="button" class="btn btn-accent" onclick="window.print()">
+        Imprimir / PDF
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Navegación lateral -->
+    <aside class="sidebar no-print">
+      <div class="sidebar-card">
+        <h3>Estructura del Informe</h3>
+        <nav id="navSecciones">
+          <a href="#sec-caratula" class="nav-link active">Carátula Oficial UNJBG</a>
+          <a href="#sec-1" class="nav-link">1. Resumen</a>
+          <a href="#sec-2" class="nav-link">2. Introducción</a>
+          <a href="#sec-3" class="nav-link">3. Materiales y Desarrollo</a>
+          <a href="#sec-4" class="nav-link">4. Resultados y Discusión</a>
+          <a href="#sec-5" class="nav-link">5. Conclusiones</a>
+          <a href="#sec-6" class="nav-link">6. Reflexión Argumentada</a>
+          <a href="#sec-7" class="nav-link">7. Referencias (APA 7)</a>
+          <a href="#sec-8" class="nav-link">8. Cuestionario</a>
+          <a href="#sec-9" class="nav-link">9. Apéndices</a>
+        </nav>
+
+        <div class="apa-summary-box">
+          <strong>Normas APA 7 Aplicadas:</strong>
+          <ul>
+            <li>Times New Roman 12 pt, doble espacio</li>
+            <li>Márgenes 2.54 cm y sangría 1.27 cm</li>
+            <li>Citas autor-fecha: <code>(Apellido, Año)</code></li>
+            <li>Tablas sin líneas verticales</li>
+            <li>Referencias con sangría francesa</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-footer">
+          <span id="estadoGuardado" class="save-indicator">Autoguardado activo</span>
+          <button type="button" class="btn-link-danger" id="btnLimpiarTodo">Limpiar formulario</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Área principal de edición -->
+    <main class="editor-container">
+      <!-- CARÁTULA -->
+      <section id="sec-caratula" class="paper-card caratula-card">
+        <div class="caratula-header">
+          <div class="apa-page-number">1</div>
+          <h2 class="uni-title">UNIVERSIDAD NACIONAL JORGE BASADRE GROHMANN</h2>
+
+          <div class="caratula-institucional-stack">
+            <div class="form-group-inline">
+              <label for="facultad">Facultad:</label>
+              <input type="text" id="facultad" list="listaFacultades" placeholder="[Facultad correspondiente]" />
+              <datalist id="listaFacultades"></datalist>
+            </div>
+            <div class="form-group-inline">
+              <label for="escuela">Escuela Profesional:</label>
+              <input type="text" id="escuela" list="listaEscuelas" placeholder="[Ingeniería Ambiental / Física / etc.]" />
+              <datalist id="listaEscuelas"></datalist>
+            </div>
+
+            <!-- LOGO OFICIAL UNJBG JUSTO DESPUÉS DE ESCUELA PROFESIONAL EN EL CENTRO -->
+            <div class="caratula-logo-wrapper">
+              <img id="logoCaratulaImg" src="assets/logo-unjbg.png" alt="Escudo Oficial UNJBG" class="caratula-logo" />
+            </div>
+
+            <div class="form-group-inline">
+              <label for="laboratorio">Laboratorio de:</label>
+              <input type="text" id="laboratorio" value="FÍSICA" placeholder="FÍSICA" />
+            </div>
+          </div>
+
+          <div class="doc-type-banner">INFORME DE LABORATORIO</div>
+
+          <div class="form-group titulo-practica-group">
+            <label for="tituloPractica">Título de la práctica:</label>
+            <input type="text" id="tituloPractica" placeholder="[Nombre de la práctica]" />
+          </div>
+        </div>
+
+        <div class="autores-block">
+          <div class="block-header">
+            <label>Autores (Apellidos y Nombres - Código Universitario):</label>
+            <button type="button" class="btn btn-sm btn-outline no-print" id="btnAgregarAutor">+ Agregar Autor</button>
+          </div>
+          <div id="listaAutores" class="dynamic-list"></div>
+        </div>
+
+        <div class="meta-grid">
+          <div class="form-group">
+            <label for="grupo">Grupo:</label>
+            <input type="text" id="grupo" placeholder="[ ]" />
+          </div>
+          <div class="form-group">
+            <label for="horario">Horario:</label>
+            <input type="text" id="horario" placeholder="[ ]" />
+          </div>
+          <div class="form-group span-2">
+            <label for="docente">Docente:</label>
+            <input type="text" id="docente" placeholder="[Grado y Nombre]" />
+          </div>
+          <div class="form-group">
+            <label for="fechaEjecucion">Fecha de ejecución:</label>
+            <input type="text" id="fechaEjecucion" placeholder="[dd/mm/2026]" />
+          </div>
+          <div class="form-group">
+            <label>Fecha de entrega:</label>
+            <div class="fecha-entrega-inline">
+              <span>Tacna,</span>
+              <input type="text" id="diaEntrega" class="input-mini" placeholder="[día]" />
+              <span>de</span>
+              <input type="text" id="mesEntrega" class="input-med" placeholder="[mes]" />
+              <span>de</span>
+              <input type="text" id="anioEntrega" class="input-mini" value="2026" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 1: RESUMEN -->
+      <section id="sec-1" class="paper-card">
+        <div class="sec-header">
+          <h3>1. Resumen</h3>
+          <span id="contadorResumen" class="counter-pill">0 líneas aprox. (Meta: ~15 líneas)</span>
+        </div>
+        <div class="guia-box" data-guia="resumen"></div>
+        <textarea id="resumen" rows="8" placeholder="Redacte aquí el resumen en tercera persona y tiempo pasado (~15 líneas). En APA 7.ª edición se escribe en un solo párrafo sin sangría inicial..."></textarea>
+      </section>
+
+      <!-- SECCIÓN 2: INTRODUCCIÓN -->
+      <section id="sec-2" class="paper-card">
+        <div class="sec-header">
+          <h3>2. Introducción</h3>
+        </div>
+        <div class="guia-box" data-guia="introduccion"></div>
+        <label class="sub-label" for="introduccionTeoria">Motivación y Base Teórica (ecuaciones numeradas (1), (2)... y citas APA 7 ej. (Alonso & Finn, 1986)):</label>
+        <textarea id="introduccionTeoria" rows="8" placeholder="Exponga las motivaciones del trabajo experimental, la base teórica con citas en formato APA 7 (Autor, Año) y las ecuaciones numeradas correlativamente..."></textarea>
+
+        <div class="objetivos-box">
+          <h4>Objetivos</h4>
+          <div class="form-group">
+            <label for="objetivoGeneral">Objetivo General:</label>
+            <textarea id="objetivoGeneral" rows="2" placeholder="Determinar / Verificar / Estudiar..."></textarea>
+          </div>
+          <div class="block-header">
+            <label>Objetivos Específicos:</label>
+            <button type="button" class="btn btn-sm btn-outline no-print" id="btnAgregarObjetivo">+ Agregar Objetivo</button>
+          </div>
+          <div id="listaObjetivos" class="dynamic-list"></div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: MATERIALES Y DESARROLLO EXPERIMENTAL -->
+      <section id="sec-3" class="paper-card">
+        <div class="sec-header">
+          <h3>3. Materiales y Desarrollo Experimental</h3>
+        </div>
+
+        <h4>3.1 Materiales</h4>
+        <div class="guia-box" data-guia="3.1"></div>
+        <textarea id="materialesTexto" rows="3" placeholder="Descripción general de dispositivos, reactivos y equipos de medición utilizados..."></textarea>
+
+        <div class="apa-table-header">
+          <div class="apa-label-bold">Tabla 1</div>
+          <input type="text" id="tituloTablaMateriales" class="apa-title-italic-input" value="Características técnicas de los dispositivos y equipos de medición empleados" />
+        </div>
+        <div class="table-toolbar no-print">
+          <span class="apa-hint">Formato APA 7: Número en negrita arriba, título en cursiva y sin líneas verticales.</span>
+          <button type="button" class="btn btn-sm btn-outline" id="btnAgregarMaterial">+ Agregar Equipo/Material</button>
+        </div>
+        <div class="table-wrapper">
+          <table id="tablaMateriales" class="apa-table">
+            <thead>
+              <tr>
+                <th style="width: 45px;">N°</th>
+                <th>Equipo / Material</th>
+                <th>Marca / Modelo</th>
+                <th>Rango de medición</th>
+                <th>Apreciación / Incerteza</th>
+                <th style="width: 65px;">Cant.</th>
+                <th class="no-print" style="width: 45px;"></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <input type="text" id="notaTablaMateriales" class="apa-note-input" placeholder="Nota. Elaboración propia a partir de las especificaciones técnicas del laboratorio." />
+
+        <h4 class="mt-2">3.2 Procedimiento</h4>
+        <div class="guia-box" data-guia="3.2"></div>
+        <textarea id="procedimientoTexto" rows="6" placeholder="Describa en tiempo pasado los pasos realizados durante la experimentación..."></textarea>
+
+        <div class="figura-box">
+          <div class="apa-label-bold">Figura 1</div>
+          <input type="text" id="figura1Desc" class="apa-title-italic-input" placeholder="Esquema del dispositivo experimental empleado en la práctica" />
+          <div class="no-print mt-1">
+            <label class="btn btn-sm btn-outline file-label">
+              Adjuntar imagen del esquema (opcional)
+              <input type="file" id="inputFigura1" accept="image/*" hidden />
+            </label>
+          </div>
+          <div id="previewFigura1" class="figura-preview"></div>
+          <input type="text" id="figura1Nota" class="apa-note-input mt-1" placeholder="Nota. Montaje experimental realizado en el Laboratorio de Física de la UNJBG." />
+        </div>
+
+        <div class="apa-table-header mt-2">
+          <div class="apa-label-bold">Tabla 2</div>
+          <input type="text" id="tituloTablaCruda" class="apa-title-italic-input" value="Datos experimentales registrados directamente durante la medición" />
+        </div>
+        <div class="table-toolbar no-print">
+          <span class="apa-hint">Datos directos sin procesar (APA 7).</span>
+          <div>
+            <button type="button" class="btn btn-sm btn-outline" id="btnAgregarColCruda">+ Columna</button>
+            <button type="button" class="btn btn-sm btn-outline" id="btnAgregarFilaCruda">+ Fila</button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table id="tablaDatosCrudos" class="apa-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <input type="text" id="notaTablaCruda" class="apa-note-input" placeholder="Nota. Mediciones directas obtenidas sin procesamiento matemático." />
+      </section>
+
+      <!-- SECCIÓN 4: RESULTADOS Y DISCUSIÓN -->
+      <section id="sec-4" class="paper-card">
+        <div class="sec-header">
+          <h3>4. Resultados y Discusión</h3>
+        </div>
+        <div class="guia-box" data-guia="resultados_discusion"></div>
+
+        <div class="apa-table-header">
+          <div class="apa-label-bold">Tabla 3</div>
+          <input type="text" id="tituloTablaResultados" class="apa-title-italic-input" value="Valores procesados, incertezas experimentales y comparación con el modelo teórico" />
+        </div>
+        <div class="table-toolbar no-print">
+          <span class="apa-hint">Resultados procesados e incertezas (APA 7).</span>
+          <div>
+            <button type="button" class="btn btn-sm btn-outline" id="btnAgregarColRes">+ Columna</button>
+            <button type="button" class="btn btn-sm btn-outline" id="btnAgregarFilaRes">+ Fila</button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table id="tablaResultados" class="apa-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <input type="text" id="notaTablaResultados" class="apa-note-input" placeholder="Nota. Las incertezas fueron calculadas mediante propagación de errores." />
+
+        <div class="figura-box mt-2">
+          <div class="apa-label-bold">Figura 2</div>
+          <input type="text" id="figura2Desc" class="apa-title-italic-input" placeholder="Relación experimental entre [Magnitud Y (unidad)] y [Magnitud X (unidad)]" />
+          <div class="no-print mt-1">
+            <label class="btn btn-sm btn-outline file-label">
+              Adjuntar imagen de gráfica (opcional)
+              <input type="file" id="inputFigura2" accept="image/*" hidden />
+            </label>
+          </div>
+          <div id="previewFigura2" class="figura-preview"></div>
+          <input type="text" id="figura2Nota" class="apa-note-input mt-1" placeholder="Nota. Ajuste lineal por mínimos cuadrados y = mx + b, R² = ..." />
+        </div>
+
+        <label class="sub-label mt-2" for="discusionTexto">Análisis, evaluación de incertezas y discusión de resultados (cite fuentes en formato APA 7):</label>
+        <textarea id="discusionTexto" rows="7" placeholder="Discuta la validez, precisión, comparación con el modelo teórico (Autor, Año), ajuste de curvas, pendientes e interpretación física de los resultados..."></textarea>
+      </section>
+
+      <!-- SECCIÓN 5: CONCLUSIONES -->
+      <section id="sec-5" class="paper-card">
+        <div class="sec-header">
+          <h3>5. Conclusiones</h3>
+          <button type="button" class="btn btn-sm btn-outline no-print" id="btnAgregarConclusion">+ Agregar Conclusión</button>
+        </div>
+        <div class="guia-box" data-guia="conclusiones"></div>
+        <div id="listaConclusiones" class="dynamic-list"></div>
+
+        <label class="sub-label mt-2" for="fuentesError">Análisis de posibles fuentes de error y aproximaciones respecto al caso ideal:</label>
+        <textarea id="fuentesError" rows="4" placeholder="Detalle las fuentes de error sistemático y aleatorio, así como las idealizaciones del modelo teórico..."></textarea>
+      </section>
+
+      <!-- SECCIÓN 6: REFLEXIÓN ARGUMENTADA -->
+      <section id="sec-6" class="paper-card">
+        <div class="sec-header">
+          <h3>6. Reflexión Argumentada</h3>
+        </div>
+        <div class="guia-box" data-guia="reflexion"></div>
+        <textarea id="reflexionTexto" rows="5" placeholder="Relacione los principios físicos evaluados experimentalmente con su aplicación en el campo de acción profesional de su carrera..."></textarea>
+      </section>
+
+      <!-- SECCIÓN 7: REFERENCIAS (APA 7.ª EDICIÓN) -->
+      <section id="sec-7" class="paper-card">
+        <div class="sec-header">
+          <h3>7. Referencias</h3>
+          <div class="no-print" style="display:flex; gap:0.4rem;">
+            <button type="button" class="btn btn-sm btn-outline" id="btnOrdenarAPA" title="Ordenar alfabéticamente según APA 7">Ordenar A-Z (APA 7)</button>
+            <button type="button" class="btn btn-sm btn-outline" id="btnAgregarReferencia">+ Agregar Referencia</button>
+          </div>
+        </div>
+        <div class="guia-box" data-guia="referencias"></div>
+
+        <!-- Asistente rápido APA 7 -->
+        <div class="apa-builder-box no-print">
+          <div class="apa-builder-title">Asistente rápido de cita bibliográfica APA 7.ª Edición:</div>
+          <div class="apa-builder-grid">
+            <select id="apaTipoFuente">
+              <option value="libro">Libro</option>
+              <option value="articulo">Artículo Científico</option>
+              <option value="guia">Guía de Laboratorio / Web</option>
+            </select>
+            <input type="text" id="apaAutor" placeholder="Apellidos, N. (ej. Serway, R. A., & Jewett, J. W.)" />
+            <input type="text" id="apaAnio" placeholder="Año (ej. 2018)" />
+            <input type="text" id="apaTitulo" placeholder="Título de la obra o artículo" />
+            <input type="text" id="apaFuente" placeholder="Editorial / Revista y Vol.(Núm.), pp. / URL" />
+            <button type="button" class="btn btn-sm btn-primary" id="btnInsertarAPA">Insertar en Lista</button>
+          </div>
+        </div>
+
+        <div id="listaReferencias" class="dynamic-list apa-references-list"></div>
+      </section>
+
+      <!-- SECCIÓN 8: CUESTIONARIO -->
+      <section id="sec-8" class="paper-card">
+        <div class="sec-header">
+          <h3>8. Cuestionario</h3>
+          <button type="button" class="btn btn-sm btn-outline no-print" id="btnAgregarPregunta">+ Agregar Pregunta</button>
+        </div>
+        <div class="guia-box" data-guia="cuestionario"></div>
+        <div id="listaCuestionario" class="dynamic-list"></div>
+      </section>
+
+      <!-- SECCIÓN 9: APÉNDICES -->
+      <section id="sec-9" class="paper-card">
+        <div class="sec-header">
+          <h3>9. Apéndices</h3>
+        </div>
+        <div class="guia-box" data-guia="apendices"></div>
+        <textarea id="apendicesTexto" rows="7" placeholder="Incluya aquí el desarrollo matemático detallado, propagación de incertezas paso a paso, deducciones o tablas complementarias..."></textarea>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/plantilla-unjbg.js"></script>
+  <script src="js/exportadores.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

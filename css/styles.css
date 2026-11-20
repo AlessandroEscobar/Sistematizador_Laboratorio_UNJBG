@@ -1,0 +1,701 @@
+/* Estilos Académicos APA 7.ª Edición - Generador de Informes de Laboratorio UNJBG */
+:root {
+  --primary: #0f294a;
+  --primary-light: #1d4375;
+  --accent: #b8860b;
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #cbd5e1;
+  --guia-bg: #f8fafc;
+  --guia-border: #2563eb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* Barra superior */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--primary);
+  color: #fff;
+  padding: 0.65rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.topbar-logo {
+  width: 38px;
+  height: 44px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.badge-apa {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  vertical-align: middle;
+  margin-left: 0.35rem;
+}
+
+.topbar-brand h1 {
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.topbar-brand p {
+  font-size: 0.76rem;
+  color: #cbd5e1;
+}
+
+.topbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+/* Botones */
+.btn {
+  border: 1px solid transparent;
+  padding: 0.4rem 0.72rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.btn-sm {
+  padding: 0.28rem 0.58rem;
+  font-size: 0.76rem;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+.btn-primary:hover { background: #1d4ed8; }
+
+.btn-secondary {
+  background: #334155;
+  color: #fff;
+}
+.btn-secondary:hover { background: #1e293b; }
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-accent:hover { background: #9a6f08; }
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  border-color: rgba(148, 163, 184, 0.45);
+}
+.paper-card .btn-outline {
+  background: #fff;
+  color: var(--primary);
+  border-color: var(--border);
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+.paper-card .btn-outline:hover {
+  background: #f1f5f9;
+}
+
+.btn-danger-icon {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-link-danger {
+  background: none;
+  border: none;
+  color: #dc2626;
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 0.4rem;
+}
+
+/* Layout */
+.layout {
+  max-width: 1280px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 265px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 74px;
+}
+
+.sidebar-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.sidebar-card h3 {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 0.65rem;
+}
+
+#navSecciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  padding: 0.36rem 0.6rem;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.nav-link:hover, .nav-link.active {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.apa-summary-box {
+  margin-top: 0.85rem;
+  padding: 0.65rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: #334155;
+}
+
+.apa-summary-box ul {
+  margin-top: 0.35rem;
+  padding-left: 1.1rem;
+}
+
+.apa-summary-box li {
+  margin-bottom: 0.2rem;
+}
+
+.sidebar-footer {
+  margin-top: 0.85rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.save-indicator {
+  font-size: 0.76rem;
+  color: #15803d;
+  font-weight: 600;
+}
+
+/* Hojas / Tarjetas del documento */
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.paper-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2.2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+.apa-page-number {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-family: "Times New Roman", serif;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.caratula-header {
+  text-align: center;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.uni-title {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.4px;
+  margin-bottom: 0.9rem;
+}
+
+.caratula-institucional-stack {
+  max-width: 620px;
+  margin: 0 auto 1.1rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.form-group-inline {
+  display: grid;
+  grid-template-columns: 165px 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.form-group-inline label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* LOGO CENTRADO DESPUÉS DE ESCUELA PROFESIONAL */
+.caratula-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.85rem auto;
+  width: 100%;
+}
+
+.caratula-logo {
+  width: 115px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.doc-type-banner {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--primary);
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.titulo-practica-group {
+  text-align: left;
+}
+
+.titulo-practica-group input {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-group label, .sub-label, .block-header label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+input[type="text"], textarea, select {
+  width: 100%;
+  padding: 0.52rem 0.72rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--text);
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+input[type="text"]:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.fecha-entrega-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+}
+
+.input-mini {
+  width: 68px !important;
+  text-align: center;
+}
+
+.input-med {
+  width: 120px !important;
+  text-align: center;
+}
+
+/* Encabezados de sección y guías */
+.sec-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.sec-header h3 {
+  font-size: 1.12rem;
+  color: var(--primary);
+}
+
+.paper-card h4 {
+  font-size: 0.98rem;
+  color: var(--primary-light);
+  margin: 0.75rem 0 0.4rem;
+}
+
+.guia-box {
+  background: var(--guia-bg);
+  border-left: 4px solid var(--guia-border);
+  padding: 0.65rem 0.9rem;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.83rem;
+  color: #334155;
+  margin-bottom: 0.85rem;
+}
+
+body.ocultar-guias .guia-box {
+  display: none;
+}
+
+.counter-pill {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.counter-pill.ok {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Listas dinámicas */
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.dynamic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dynamic-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Referencias APA 7 */
+.apa-references-list input[type="text"] {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.98rem;
+}
+
+.apa-builder-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.apa-builder-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.apa-builder-grid {
+  display: grid;
+  grid-template-columns: 150px 1fr 95px 1fr 1fr auto;
+  gap: 0.45rem;
+}
+
+.cuestionario-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Tablas y Figuras estilo APA 7.ª Edición */
+.apa-table-header {
+  margin-top: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+.apa-label-bold {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: #000;
+}
+
+.apa-title-italic-input {
+  font-family: "Times New Roman", Times, serif !important;
+  font-style: italic !important;
+  font-size: 0.96rem !important;
+  border: 1px dashed #cbd5e1 !important;
+  background: #fcfcfd !important;
+  margin-top: 0.2rem;
+}
+
+.apa-note-input {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 0.86rem !important;
+  border: none !important;
+  border-bottom: 1px dashed #cbd5e1 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  margin-top: 0.35rem;
+  color: #334155 !important;
+}
+
+.table-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.apa-hint {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* Tabla APA 7: Solo bordes horizontales superior, bajo encabezado e inferior */
+.apa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.92rem;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+.apa-table th, .apa-table td {
+  border-left: none;
+  border-right: none;
+  padding: 0.4rem 0.55rem;
+  text-align: left;
+}
+
+.apa-table thead tr {
+  border-bottom: 1.5px solid #000;
+}
+
+.apa-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.apa-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.apa-table th {
+  background: transparent;
+  color: #000;
+  font-weight: 700;
+}
+
+.apa-table input {
+  border: none;
+  padding: 0.22rem;
+  background: transparent;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.92rem;
+}
+
+.apa-table input:focus {
+  box-shadow: none;
+  background: #eff6ff;
+}
+
+.figura-box {
+  margin-top: 1rem;
+  padding: 0.85rem;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: #fcfcfd;
+}
+
+.figura-preview {
+  text-align: center;
+}
+
+.figura-preview img {
+  max-width: 100%;
+  max-height: 320px;
+  margin-top: 0.6rem;
+  border-radius: 4px;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1.1rem; }
+
+/* Responsive */
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: static;
+  }
+  .meta-grid, .apa-builder-grid {
+    grid-template-columns: 1fr;
+  }
+  .span-2 {
+    grid-column: span 1;
+  }
+  .form-group-inline {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Impresión / PDF en formato APA 7.ª Edición */
+@media print {
+  @page {
+    margin: 2.54cm;
+  }
+  body {
+    background: #fff;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 2;
+    color: #000;
+  }
+  .no-print, .guia-box {
+    display: none !important;
+  }
+  .layout {
+    display: block;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+  .paper-card {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+  .caratula-card {
+    page-break-after: always;
+    padding-top: 1rem;
+  }
+  .caratula-logo {
+    width: 115px;
+    margin: 0.8rem auto;
+  }
+  input[type="text"], textarea {
+    border: none !important;
+    padding: 0 !important;
+    resize: none;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    color: #000;
+  }
+  .apa-references-list input[type="text"] {
+    padding-left: 1.27cm !important;
+    text-indent: -1.27cm !important;
+  }
+}
